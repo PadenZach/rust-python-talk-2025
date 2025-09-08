@@ -1,0 +1,104 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	// Use a custom Dockerfile
+	"build": {
+		"dockerfile": "Dockerfile",
+		// "cacheFrom": "symetra.jfrog.io/dmgmt-shareables/devcontainer-python-pg:latest"
+	},
+	"features": {
+		"ghcr.io/va-h/devcontainers-features/uv:1": {},
+		"ghcr.io/devcontainers/features/rust:1": "latest"
+	},
+	"runArgs": [
+		"--dns",
+		"8.8.8.8", // Replace with your desired DNS server
+		"--dns",
+		"8.8.4.4", // Add additional DNS servers if needed
+		"--memory",
+		"8g", // Allocate 8GB of RAM to the container
+		"--memory-swap",
+		"10g", // Total memory limit (RAM + swap)
+		"--network=host"
+	],
+	// Specify minimum host requirements
+	"hostRequirements": {
+		"memory": "8gb",
+		"cpus": 2
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bierner.github-markdown-preview",
+				"bierner.markdown-checkbox",
+				"bierner.markdown-mermaid",
+				"charliermarsh.ruff",
+				"DavidAnson.vscode-markdownlint",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"matangover.mypy",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"redhat.vscode-yaml",
+				"tamasfe.even-better-toml",
+				"1YiB.rust-bundle"
+			],
+			"settings": {
+				"python.languageServer": "Pylance",
+				"python.linting.enabled": true,
+				"python.formatting.provider": "ruff",
+				"python.testing.pytestArgs": [
+					"-v",
+					"-s"
+				],
+				"python.testing.pytestEnabled": true,
+				"python.testing.autoTestDiscoverOnSaveEnabled": true,
+				"python.testing.pytestPath": ".",
+				"editor.formatOnSave": true,
+				"editor.tabSize": 4,
+				"editor.insertSpaces": true,
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"python.terminal.activateEnvironment": true,
+				"python.defaultInterpreterPath": ".venv/bin/python"
+			}
+		}
+	},
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+		"SYMETRA_USER_NAME": "${localEnv:USERNAME},${localEnv:USER}"
+	},
+	"mounts": [
+		// Use non-user locations for all mounts
+		"source=vscode-server,target=/.vscode-server,type=volume",
+		// Mount .aws directory from host to container in a non-user location
+		// You MUST set up AWS config in the DEFAULT location.
+		// If you have a non-regular environment, fix but do not commit changes
+		// yourself.
+		// If you have both HOME and USERPROFILE set, your environment is
+		// malconfigured.
+		//    Note:  This is currently formatted for a Windows-based developer.  Modify the line as needed for other operating systems.
+		// "source=${localEnv:USERPROFILE}\\.aws,target=/.aws,type=bind",
+		//"source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/.aws,type=bind",
+		// Add a volume for UV_CACHE in a non-user location
+		"source=uv_cache,target=/.uv_cache,type=volume",
+		// Add a volume for command history
+		"source=bellevue-commandhistory,target=/commandhistory,type=volume"
+	],
+	"containerEnv": {
+		// "AWS_CONFIG_FILE": "/.aws/config",
+		// "AWS_SHARED_CREDENTIALS_FILE": "/.aws/credentials",
+		"DOTENV_CONFIG_PATH": "${localWorkspaceFolder}/.env",
+		"HISTFILE": "/commandhistory/.zsh_history",
+		"PROMPT_COMMAND": "history -a",
+		// Used in AWS Azure login
+		// "PUPPETEER_HEADLESS": "true",
+		// "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium",
+		"UV_CACHE_DIR": "/.uv_cache"
+	},
+	// "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+	// "postStartCommand": "./.devcontainer/postStartCommand.sh"
+}
