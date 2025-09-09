@@ -20,6 +20,16 @@ lets get going
 -->
 ---
 
+## What is Rust?
+
+<!-- class: lead -->
+![bg left:60%](https://miro.medium.com/v2/resize:fit:996/format:webp/1*EyBu3xyslFozyfa_UUlK0w.gif)
+
+- Systems Programming
+- Memory Safety
+- High Performance
+
+---
 # Our Starting Point
 
 - Goal: Understand **just enough systems concepts** to see:
