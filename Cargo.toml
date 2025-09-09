@@ -9,4 +9,5 @@ name = "rust_python_talk_2025"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.23.3"
+pyo3 = { version = "0.23.3", features = ["extension-module"] }
+rayon = "1.7"

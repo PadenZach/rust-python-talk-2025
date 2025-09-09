@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/devcontainers/python:3.12-bookworm
 # Add postgres apt repo that has newer versions of postgres available.
 RUN apt update
 
-RUN sudo apt install ripgrep
+RUN sudo apt install ripgrep hyperfine
 
 ARG NODE_VERSION="lts/*"
 RUN su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} && nvm alias default ${NODE_VERSION}"
